@@ -9,29 +9,40 @@ var options = {
 
 var body = "";
 
-http.get(options, function (resp) {
-    resp.on('data', function (chunk) {
-        //do something with chunk
+http.get(options, function (res) {
+    var body = '';
+    res.on('data', function (chunk) {
         body += chunk;
+    });
+    res.on('end', function () {
+        //console.log(body);
+        console.log("done");
         parseHttp(body);
     });
-}).on("error", function (e) {
+}).on('error', function (e) {
     console.log("Got error: " + e.message);
-});
+})
 
 function parseHttp(body) {
     let $ = cheerio.load(body)
-    //let data = $('#news').find($('.post-outer'))
-
+    let $node = $('#news').find($('.post-outer'));
+    //console.log($node.length);
+    var a = 0;
+    $node.each(function (index, node) {
+        $node = $(node);
+        console.log(($node).find($('a')).text());
+        a++;
+        //console.log(a);
+    })
     //$ =  $('#news').find($('.post-outer'))
     var a = 0;
     $('div.post-outer').each(function (i, elem) {
         //fruits[i] = $(this).text();
-        console.log(elem);
-         console.log("==========================================");
-         a++;
-         console.log(a);
-         console.log("==========================================");
+
+        // console.log($(this).find($('a')).text())
+        // console.log(elem)
     });
+
+
     //console.log(data.html())
 }

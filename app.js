@@ -24,7 +24,7 @@ function parseHttp(body) {
     //let data = $('#news').find($('.post-outer'))
 
     //$ =  $('#news').find($('.post-outer'))
-    int a = 0;
+    var a = 0;
     $('div.post-outer').each(function (i, elem) {
         //fruits[i] = $(this).text();
         console.log(elem);

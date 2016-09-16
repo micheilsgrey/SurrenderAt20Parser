@@ -8,6 +8,8 @@ var options = {
 };
 
 var body = "";
+let newsUrlArray = [];
+let newsTitleArray = [];
 
 http.get(options, function (res) {
     var body = '';
@@ -15,7 +17,6 @@ http.get(options, function (res) {
         body += chunk;
     });
     res.on('end', function () {
-        //console.log(body);
         console.log("done");
         parseHttp(body);
     });
@@ -25,24 +26,18 @@ http.get(options, function (res) {
 
 function parseHttp(body) {
     let $ = cheerio.load(body)
-    let $node = $('#news').find($('.post-outer'));
-    //console.log($node.length);
-    var a = 0;
-    $node.each(function (index, node) {
+    let $nodes = $('#news').find($('.post-outer'));
+    $nodes.each(function (index, node) {
         $node = $(node);
-        console.log(($node).find($('a')).text());
-        a++;
-        //console.log(a);
+
+        let $newsNode = ($node).find($('.news-title'));
+        let $newsUrl = ($newsNode).children().attr('href')
+        let $newsTitle = ($newsNode).children().text()
+        //console.log($newsUrl.text())
+        newsUrlArray.push($newsUrl)
+        newsTitleArray.push($newsTitle)
     })
-    //$ =  $('#news').find($('.post-outer'))
-    var a = 0;
-    $('div.post-outer').each(function (i, elem) {
-        //fruits[i] = $(this).text();
-
-        // console.log($(this).find($('a')).text())
-        // console.log(elem)
-    });
-
-
-    //console.log(data.html())
+    console.log(newsTitleArray[0])
+    console.log(newsUrlArray[0])
 }
+
